@@ -1,0 +1,18 @@
+# 서윤호_20230310_SQL개인과제
+
+# 이름이 전공인인 학생의 학교, 번, 학생이름, 총점, 평균 출력
+select s.schoolname, sj.no, sj.name, sj.kor+sj.mat+sj.eng as 총점, round((sj.kor+sj.mat+sj.eng)/3, 2) as 평균
+ from school s join sungjuk sj on s.schoolcode=sj.schoolcode where sj.name='전공인';
+
+# 성적이 최우수인 학생의 정보 출력
+select * from school s join sungjuk sj on s.schoolcode=sj.schoolcode 
+    where sj.kor+sj.mat+sj.eng = (select max(kor+mat+eng) from sungjuk);
+
+# 학교별 학생수와 평균점수를 출력
+select s.schoolname, count(sj.no) as 학생수, round(avg(sj.kor+sj.mat+sj.eng), 2) as 평균점수
+    from school s join sungjuk sj on s.schoolcode = sj.schoolcode group by s.schoolname;
+
+# 학교별 우수한 학생을 한명씩 선정하여 이름, 총점, 학교 이름 출력
+select sj.name, sj.kor+sj.mat+sj.eng as 총점, s.schoolname 
+    from school s, sungjuk sj 
+    where s.schoolcode=sj.schoolcode and (sj.kor+sj.mat+sj.eng) in (select max(kor+mat+eng) from sungjuk group by schoolcode);
