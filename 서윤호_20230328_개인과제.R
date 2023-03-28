@@ -18,7 +18,7 @@ a2 <- Cars93 %>%
   filter(Cars93$Origin == "non-USA")
 t.test(a1$Price, a2$Price, var.equal = T, conf.level = 0.95)
 
-######
+############# #############
 # 방안 2)
 USA <- Cars93$Price[Cars93$Origin == "USA"]
 NUSA <- Cars93$Price[Cars93$Origin != "USA"]
